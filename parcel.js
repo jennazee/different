@@ -12,7 +12,7 @@ function getDiffFromUrl(url, callback) {
     if (!error && response.statusCode == 200) {
       getParsedDiff(body, callback);
     } else {
-      throw('COULD NOT FETCH DIFF FROM URL');
+      throw('Could not get diff from URL');
     }
   })
 }
