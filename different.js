@@ -29,15 +29,15 @@ function getDiffFromFile(filename, callback) {
 function getParsedDiff(diff, callback) {
   if (!diff) { throw 'No git diff to parse';}
   if (diff.match(/^diff/) === -1) { throw 'Invalid file: Not a complete git diff';}
-  rows = splitLines(diff);
-  parsed = [];
-  curr = {additions: [], deletions: []};
+  var rows = splitLines(diff);
+  var parsed = [];
+  var curr = {additions: [], deletions: []};
 
   for (var i = 0; i < rows.length; i++) {
     if (rows[i].match(/^diff/)) {
       if (i > 0) {
         parsed.push(curr);
-        curr = {};
+        curr = {additions: [], deletions: []};
       }
       curr.fileExtension = rows[i].match(/\.(.+?)\s/)[1];
     }
@@ -50,13 +50,13 @@ function getParsedDiff(diff, callback) {
     else if (rows[i].trim().match(/^\-/)) {
       var deletion = rows[i].trim().replace('-', '');
       if (deletion) {
-        curr.deletions.push(deletion);
+        curr.deletions.push(deletion.trim());
       }
     }
     else if (rows[i].trim().match(/^\+/)) {
       var addition = rows[i].trim().replace('+', '');
       if (addition) {
-        curr.additions.push(addition);
+        curr.additions.push(addition.trim());
       }
     }
   }
