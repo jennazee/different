@@ -1,6 +1,6 @@
 {
   "name": "different",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "main": "different.js",
   "description": "A module for parsing git diffs",
   "author": "Jenna Zeigen <jenna.zeigen@gmail.com>",

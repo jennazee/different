@@ -35,7 +35,8 @@ different.parseDiff({fileName: 'path/to/diff.diff'}, function(diff) {console.log
 Example Array Output
 ---
 ```
-[ { additions:
+[ {
+    additions:
      [ 'Installation',
        '---',
        'From NPM:',
@@ -53,12 +54,15 @@ Example Array Output
     deletions: [ 'How to use' ],
     fileExtension: 'md',
     a: '---------------',
-    b: 'README.md' },
-  { additions: [ '"version": "0.1.2",', '"main": "different.js",' ],
+    b: 'README.md'
+  },
+  {
+    additions: [ '"version": "0.1.2",', '"main": "different.js",' ],
     deletions: [ '"version": "0.1.1",' ],
     fileExtension: 'json',
     a: 'package.json',
-    b: 'package.json' }
+    b: 'package.json'
+  }
 ]
 
 ```

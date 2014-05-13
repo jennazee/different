@@ -1,13 +1,19 @@
+var fs = require('fs');
+var req = require('request');
+
+/* Exports */
+
+var parseDiffFromUrl, parseDiffFromFile;
+
 exports.parseDiff = function(options, callback) {
   if (options.url) {
-    getDiffFromUrl(options.url, callback);
+    parseDiffFromUrl(options.url, callback);
   } else if (options.fileName) {
-    getDiffFromFile(options.fileName, callback);
+    parseDiffFromFile(options.fileName, callback);
   }
 }
 
-function getDiffFromUrl(url, callback) {
-  var req = require('request');
+exports.parseDiffFromUrl = parseDiffFromUrl = function (url, callback) {
   req(url, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       getParsedDiff(body, callback);
@@ -17,14 +23,15 @@ function getDiffFromUrl(url, callback) {
   })
 }
 
-function getDiffFromFile(filename, callback) {
-  var fs = require('fs');
+exports.parseDiffFromFile = parseDiffFromFile = function (filename, callback) {
   fs.readFile(filename, 'utf8', function(err, data) {
     if (err) throw err;
     getParsedDiff(data, callback);
   });
 }
 
+
+/* Internal functions */
 
 function getParsedDiff(diff, callback) {
   if (!diff) { throw 'No git diff to parse';}
@@ -34,6 +41,7 @@ function getParsedDiff(diff, callback) {
   var curr = {additions: [], deletions: []};
 
   for (var i = 0; i < rows.length; i++) {
+    //"diff" occurs at the beginning of a new file's diff so push to parsed and start a new object
     if (rows[i].match(/^diff/)) {
       if (i > 0) {
         parsed.push(curr);
@@ -60,6 +68,8 @@ function getParsedDiff(diff, callback) {
       }
     }
   }
+
+  //must be done; push to parsed.
   parsed.push(curr);
   if (callback && typeof callback == 'function') {
     callback(parsed);
