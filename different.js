@@ -3,8 +3,6 @@ var req = require('request');
 
 /* Exports */
 
-var parseDiffFromUrl, parseDiffFromFile;
-
 exports.parseDiff = function(options, callback) {
   if (options.url) {
     parseDiffFromUrl(options.url, callback);
@@ -13,17 +11,19 @@ exports.parseDiff = function(options, callback) {
   }
 }
 
-exports.parseDiffFromUrl = parseDiffFromUrl = function (url, callback) {
-  req(url, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
+exports.parseDiffFromUrl = function parseDiffFromUrl(url, callback) {
+  req(url, function (err, response, body) {
+    if (err) {
+      throw err;
+    } else if (response.statusCode == 200) {
       getParsedDiff(body, callback);
     } else {
-      throw('Could not get diff from URL');
+      throw Error('Could not get diff from URL');
     }
   })
 }
 
-exports.parseDiffFromFile = parseDiffFromFile = function (filename, callback) {
+exports.parseDiffFromFile = function parseDiffFromFile(filename, callback) {
   fs.readFile(filename, 'utf8', function(err, data) {
     if (err) throw err;
     getParsedDiff(data, callback);
@@ -34,8 +34,8 @@ exports.parseDiffFromFile = parseDiffFromFile = function (filename, callback) {
 /* Internal functions */
 
 function getParsedDiff(diff, callback) {
-  if (!diff) { throw 'No git diff to parse';}
-  if (diff.trim().search(/^diff/) !== 0) { throw 'Invalid file: Not a complete git diff';}
+  if (!diff) { throw Error('No git diff to parse');}
+  if (diff.trim().search(/^diff/) !== 0) { throw Error('Invalid file: Not a complete git diff');}
   var rows = splitLines(diff);
   var parsed = [];
   var curr = {additions: [], deletions: []};
