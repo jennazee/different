@@ -1,7 +1,7 @@
-parcel
+different
 =========
 
-parcel is a node module for parsing git diff from a url or file.
+different is a node module for parsing git diff from a url or file.
 
 Version
 --
@@ -17,8 +17,7 @@ How to use
 --------------
 
 ```js
-var parcel = require('parcel');
-
-parcel.parseDiff({url: 'https://github.com/jennazee/parcel/commit/6798084f3a41c626b07a62552ea4c78c4a2011d6.diff'}, function(diff) {console.log(diff)});
+var different = require('different');
+different.parseDiff({url: 'https://github.com/jennazee/different/commit/6798084f3a41c626b07a62552ea4c78c4a2011d6.diff'}, function(diff) {console.log(diff)});
 
 ```
