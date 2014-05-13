@@ -1,9 +1,10 @@
 {
-  "name": "parcel",
+  "name": "different",
+  "version": "0.1.0",
   "description": "A module for parsing git diffs",
   "author": "Jenna Zeigen <jenna.zeigen@gmail.com>",
   "dependencies": {
-    "request": "2.x.x",
+    "request": "2.x.x"
   },
   "engine": "*"
 }
