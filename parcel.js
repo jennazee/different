@@ -1,3 +1,11 @@
+exports.parseDiff = function(options, callback) {
+  if (options.url) {
+    getDiffFromUrl(options.url, callback);
+  } else if (options.fileName) {
+    getDiffFromFile(options.fileName, callback);
+  }
+}
+
 function getDiffFromUrl(url, callback) {
   var req = require('request');
   req(url, function (error, response, body) {
@@ -19,20 +27,6 @@ function getDiffFromFile(filename, callback) {
 
 
 function getParsedDiff(diff, callback) {
-  /*
-  Eats: A git diff
-  Poops: An array of objects like so:
-    [
-      {
-        a: 'file-a.js';
-        b: 'file-b.js';
-        additions: ['line1', 'line2'];
-        deletions: ['line1', 'line2'];
-        fileExtension: 'js'
-      }
-
-    ]
-  */
   if (!diff) { throw 'No git diff to parse';}
   if (diff.match(/^diff/) === -1) { throw 'Invalid file: Not a complete git diff';}
   rows = splitLines(diff);
@@ -72,17 +66,6 @@ function getParsedDiff(diff, callback) {
   }
 }
 
-function parseDiff(options, callback) {
-  if (options.url) {
-    getDiffFromUrl(options.url, callback);
-  } else if (options.fileName) {
-    getDiffFromFile(options.fileName, callback);
-  }
-}
-
 function splitLines(text) {
   return text.match(/^.*([\n\r]+|$)/gm);
 }
-
-parseDiff({fileName: 'test.diff'}, function(diff) {console.log('file callback: ', diff)});
-parseDiff({url: 'https://github.com/brooklynjs/brooklynjs.github.io/pull/56.diff'}, function(diff) {console.log('url callback: ', diff)});
