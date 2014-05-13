@@ -35,7 +35,7 @@ exports.parseDiffFromFile = parseDiffFromFile = function (filename, callback) {
 
 function getParsedDiff(diff, callback) {
   if (!diff) { throw 'No git diff to parse';}
-  if (diff.match(/^diff/) === -1) { throw 'Invalid file: Not a complete git diff';}
+  if (diff.trim().search(/^diff/) !== 0) { throw 'Invalid file: Not a complete git diff';}
   var rows = splitLines(diff);
   var parsed = [];
   var curr = {additions: [], deletions: []};

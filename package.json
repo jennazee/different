@@ -7,5 +7,9 @@
   "dependencies": {
     "request": "2.x.x"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jennazee/different.git"
+  },
   "engine": "*"
 }
