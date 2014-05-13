@@ -24,11 +24,17 @@ Usage
 ```js
 var different = require('different');
 
-//diff from URL
+//parse diff from URL with options
 different.parseDiff({url: 'https://github.com/jennazee/different/commit/6b7c205aa17e70f4958e8a7c20fccac8318480ff.diff'}, function(diff) {console.log(diff)});
 
-//diff from file
+//parse diff from file with options
 different.parseDiff({fileName: 'path/to/diff.diff'}, function(diff) {console.log(diff)});
+
+//parse diff straight from url
+different.parseDiffFromUrl('https://github.com/jennazee/different/commit/6b7c205aa17e70f4958e8a7c20fccac8318480ff.diff', function(diff) {console.log(diff)});
+
+//parse diff straight from file with options
+different.parseDiff('path/to/diff.diff', function(diff) {console.log(diff)});
 
 ```
 
