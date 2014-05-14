@@ -49,10 +49,10 @@ function getParsedDiff(diff, callback) {
       }
       curr.fileExtension = rows[i].match(/\.(.+?)\s/)[1];
     }
-    else if (rows[i].trim().match(/^\-\-\-/)) {
+    else if (rows[i].trim().match(/^\-\-\-\sa\//)) {
       curr.a = rows[i].trim().replace('\-\-\- a/', '');
     }
-    else if (rows[i].trim().match(/^\+\+\+/)) {
+    else if (rows[i].trim().match(/^\+\+\+\sb\//)) {
       curr.b = rows[i].trim().replace('\+\+\+ b/', '');
     }
     else if (rows[i].trim().match(/^\-/)) {

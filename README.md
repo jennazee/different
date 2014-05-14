@@ -57,9 +57,9 @@ Example Array Output
        '//diff from URL',
        '//diff from file',
        'different.parseDiff({fileName: \'path/to/diff.diff\'}, function(diff) {console.log(diff)});' ],
-    deletions: [ 'How to use' ],
+    deletions: [ 'How to use', '--------------' ],
     fileExtension: 'md',
-    a: '---------------',
+    a: 'README.md',
     b: 'README.md'
   },
   {
