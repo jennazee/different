@@ -33,7 +33,7 @@ different.parseDiff({fileName: 'path/to/diff.diff'}, function(diff) {console.log
 //parse diff straight from url
 different.parseDiffFromUrl('https://github.com/jennazee/different/commit/6b7c205aa17e70f4958e8a7c20fccac8318480ff.diff', function(diff) {console.log(diff)});
 
-//parse diff straight from file with options
+//parse diff straight from file
 different.parseDiff('path/to/diff.diff', function(diff) {console.log(diff)});
 
 ```

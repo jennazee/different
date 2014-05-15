@@ -42,7 +42,7 @@ function getParsedDiff(diff, callback) {
 
   for (var i = 0; i < rows.length; i++) {
     //"diff" occurs at the beginning of a new file's diff so push to parsed and start a new object
-    if (rows[i].match(/^diff/)) {
+    if (rows[i].match(/^diff\s\-\-git/)) {
       if (i > 0) {
         parsed.push(curr);
         curr = {additions: [], deletions: []};
@@ -55,13 +55,13 @@ function getParsedDiff(diff, callback) {
     else if (rows[i].trim().match(/^\+\+\+\sb\//)) {
       curr.b = rows[i].trim().replace('\+\+\+ b/', '');
     }
-    else if (rows[i].trim().match(/^\-/)) {
+    else if (rows[i].match(/^\-/)) {
       var deletion = rows[i].trim().replace('-', '');
       if (deletion) {
         curr.deletions.push(deletion.trim());
       }
     }
-    else if (rows[i].trim().match(/^\+/)) {
+    else if (rows[i].match(/^\+/)) {
       var addition = rows[i].trim().replace('+', '');
       if (addition) {
         curr.additions.push(addition.trim());
